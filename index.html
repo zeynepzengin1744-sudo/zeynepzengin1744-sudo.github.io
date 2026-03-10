@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iOS Apps Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --teal: #0f766e;
+      --teal-soft: #14b8a6;
+      --teal-dark: #0b4f4a;
+      --orange: #f97316;
+      --orange-soft: #fb923c;
+      --cream: #fffaf5;
+      --ink: #102a2a;
+      --muted: #5f7474;
+      --card: rgba(255,255,255,0.88);
+      --shadow: 0 20px 50px rgba(16, 42, 42, 0.12);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(20, 184, 166, 0.20), transparent 35%),
+        radial-gradient(circle at top right, rgba(249, 115, 22, 0.16), transparent 30%),
+        linear-gradient(180deg, #f6fffd 0%, #ffffff 45%, var(--cream) 100%);
+    }
+
+    .navbar {
+      backdrop-filter: blur(14px);
+      background: rgba(255,255,255,0.72) !important;
+      border-bottom: 1px solid rgba(15, 118, 110, 0.08);
+    }
+
+    .brand-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--teal), var(--orange));
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      box-shadow: 0 12px 24px rgba(15, 118, 110, 0.25);
+    }
+
+    .hero {
+      padding: 120px 0 88px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(20, 184, 166, 0.10);
+      color: var(--teal-dark);
+      font-size: 0.92rem;
+      font-weight: 600;
+      border: 1px solid rgba(20, 184, 166, 0.16);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.7rem, 5vw, 5rem);
+      line-height: 1.02;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-top: 22px;
+      margin-bottom: 20px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--teal), var(--orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p.lead {
+      font-size: 1.12rem;
+      color: var(--muted);
+      max-width: 640px;
+      line-height: 1.8;
+    }
+
+    .btn-main {
+      background: linear-gradient(135deg, var(--teal), var(--teal-soft));
+      color: white;
+      border: none;
+      padding: 14px 22px;
+      border-radius: 14px;
+      font-weight: 700;
+      box-shadow: 0 14px 30px rgba(15, 118, 110, 0.24);
+    }
+
+    .btn-main:hover {
+      color: white;
+      transform: translateY(-1px);
+    }
+
+    .btn-alt {
+      background: white;
+      color: var(--ink);
+      border: 1px solid rgba(16, 42, 42, 0.08);
+      padding: 14px 22px;
+      border-radius: 14px;
+      font-weight: 700;
+    }
+
+    .hero-card {
+      position: relative;
+      background: rgba(255,255,255,0.74);
+      border: 1px solid rgba(255,255,255,0.85);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .hero-main-image {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      border-radius: 24px;
+    }
+
+    .floating-panel {
+      position: absolute;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 14px 16px;
+      box-shadow: 0 16px 34px rgba(16,42,42,0.12);
+      border: 1px solid rgba(255,255,255,0.85);
+    }
+
+    .panel-top {
+      top: 24px;
+      left: -24px;
+    }
+
+    .panel-bottom {
+      right: -18px;
+      bottom: 24px;
+    }
+
+    .metric {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--teal);
+      line-height: 1;
+    }
+
+    .section {
+      padding: 86px 0;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 3vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    .feature-card,
+    .app-card,
+    .testimonial-card,
+    .pricing-card,
+    .cta-card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.86);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .feature-card {
+      padding: 28px;
+      height: 100%;
+    }
+
+    .feature-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(20,184,166,0.16), rgba(249,115,22,0.16));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 18px;
+    }
+
+    .feature-card h5,
+    .app-card h5,
+    .pricing-card h4,
+    .cta-card h2 {
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .muted {
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .showcase-wrap {
+      position: relative;
+    }
+
+    .device-card {
+      background: linear-gradient(180deg, #103534, #153f3d);
+      border-radius: 36px;
+      padding: 12px;
+      box-shadow: 0 24px 50px rgba(16, 42, 42, 0.22);
+    }
+
+    .device-screen {
+      background: #fff;
+      border-radius: 28px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .device-screen img {
+      width: 100%;
+      height: 560px;
+      object-fit: cover;
+    }
+
+    .app-card {
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .app-card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+    }
+
+    .app-card .content {
+      padding: 24px;
+    }
+
+    .pill {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(249,115,22,0.12);
+      color: #b45309;
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .testimonial-card,
+    .pricing-card {
+      padding: 30px;
+      height: 100%;
+    }
+
+    .quote {
+      font-size: 1.08rem;
+      line-height: 1.85;
+      color: #345050;
+    }
+
+    .avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .pricing-card.featured {
+      background: linear-gradient(180deg, rgba(15,118,110,0.98), rgba(20,184,166,0.92));
+      color: white;
+      transform: translateY(-6px);
+    }
+
+    .pricing-card.featured .muted,
+    .pricing-card.featured li,
+    .pricing-card.featured .price-note {
+      color: rgba(255,255,255,0.84);
+    }
+
+    .price {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .price-note {
+      color: var(--muted);
+    }
+
+    .pricing-card ul {
+      padding-left: 1.1rem;
+      margin-top: 18px;
+      line-height: 2;
+    }
+
+    .cta-card {
+      padding: 48px;
+      background:
+        radial-gradient(circle at top left, rgba(20, 184, 166, 0.18), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(249, 115, 22, 0.18), transparent 28%),
+        rgba(255,255,255,0.92);
+    }
+
+    footer {
+      padding: 28px 0 48px;
+      color: var(--muted);
+    }
+
+    .mini-stat {
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(16,42,42,0.06);
+      box-shadow: 0 12px 30px rgba(16, 42, 42, 0.08);
+    }
+
+    @media (max-width: 991.98px) {
+      .hero {
+        padding-top: 100px;
+      }
+
+      .panel-top,
+      .panel-bottom {
+        position: static;
+        margin-top: 16px;
+      }
+
+      .hero-main-image,
+      .device-screen img {
+        height: 420px;
+      }
+
+      .cta-card {
+        padding: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container py-2">
+      <a class="navbar-brand d-flex align-items-center gap-3 fw-bold" href="#">
+        <span class="brand-badge">A</span>
+        <span>App Studio</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+          <li class="nav-item"><a class="nav-link" href="#apps">Apps</a></li>
+          <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+          <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
+          <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+          <li class="nav-item mt-3 mt-lg-0"><a class="btn btn-main" href="#download">Get Started</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <span class="eyebrow">✦ Beautiful iOS experiences for modern users</span>
+          <h1>Showcase your <span class="gradient-text">iOS apps</span> with style and clarity.</h1>
+          <p class="lead">
+            A polished landing page built to present your app collection, highlight premium features, and turn visitors into loyal users. Clean layouts, bold visuals, and an elegant teal-orange brand system.
+          </p>
+          <div class="d-flex flex-wrap gap-3 mt-4">
+            <a href="#download" class="btn btn-main">Download on App Store</a>
+            <a href="#apps" class="btn btn-alt">Explore Apps</a>
+          </div>
+          <div class="row g-3 mt-4">
+            <div class="col-sm-4">
+              <div class="mini-stat">
+                <div class="metric">4.9★</div>
+                <div class="muted small">Average rating</div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="mini-stat">
+                <div class="metric">1M+</div>
+                <div class="muted small">Active installs</div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="mini-stat">
+                <div class="metric">24/7</div>
+                <div class="muted small">Fast support</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="hero-card">
+            <img class="hero-main-image" src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80" alt="iPhone app showcase">
+            <div class="floating-panel panel-top">
+              <div class="small text-uppercase text-secondary fw-semibold">Featured App</div>
+              <div class="fw-bold">FocusFlow</div>
+              <div class="small muted">Productivity, routines, and deep work</div>
+            </div>
+            <div class="floating-panel panel-bottom">
+              <div class="metric">+38%</div>
+              <div class="small muted">Higher user retention after redesign</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pt-0" id="features">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Everything you need to present your app portfolio</h2>
+        <p class="section-subtitle">Designed for developers, studios, and startups who want a modern single-page site that feels premium on every screen size.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h5>App-first design</h5>
+            <p class="muted mb-0">Put your product visuals at the center with clean compositions tailored for mobile apps.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h5>Fast and responsive</h5>
+            <p class="muted mb-0">Bootstrap-powered layout with fluid spacing and adaptable sections for phones, tablets, and desktop.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card">
+            <div class="feature-icon">🎨</div>
+            <h5>Teal-orange branding</h5>
+            <p class="muted mb-0">A vivid yet balanced palette that communicates freshness, creativity, and confidence.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card">
+            <div class="feature-icon">📈</div>
+            <h5>Conversion focused</h5>
+            <p class="muted mb-0">Strong call-to-action blocks, social proof, and pricing areas crafted to drive downloads.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="apps">
+    <div class="container">
+      <div class="row align-items-center g-5 mb-5">
+        <div class="col-lg-5">
+          <span class="pill">Featured Showcase</span>
+          <h2 class="section-title mt-3">Present every app like a premium product.</h2>
+          <p class="muted">Use immersive visuals, concise copy, and a clean storytelling structure to communicate why your apps deserve attention. Replace these sample images with your own screenshots when ready.</p>
+          <div class="d-flex flex-column gap-3 mt-4">
+            <div class="d-flex gap-3 align-items-start">
+              <div class="feature-icon mb-0" style="width:48px;height:48px;border-radius:14px;">✓</div>
+              <div>
+                <div class="fw-bold">Modular sections</div>
+                <div class="muted">Mix app cards, testimonials, stats, and CTA blocks with ease.</div>
+              </div>
+            </div>
+            <div class="d-flex gap-3 align-items-start">
+              <div class="feature-icon mb-0" style="width:48px;height:48px;border-radius:14px;">★</div>
+              <div>
+                <div class="fw-bold">Elegant hierarchy</div>
+                <div class="muted">A strong visual rhythm helps visitors quickly understand your value.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="showcase-wrap">
+            <div class="device-card">
+              <div class="device-screen">
+                <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1200&q=80" alt="App preview on device">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-xl-4">
+          <div class="app-card">
+            <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?auto=format&fit=crop&w=1200&q=80" alt="Wellness app visual">
+            <div class="content">
+              <span class="pill">Wellness</span>
+              <h5 class="mt-3">CalmSpace</h5>
+              <p class="muted">Guided routines, mindful breaks, and beautifully designed wellness journeys for everyday life.</p>
+              <a href="#" class="fw-semibold text-decoration-none" style="color: var(--teal);">View app →</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-4">
+          <div class="app-card">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80" alt="Productivity app visual">
+            <div class="content">
+              <span class="pill">Productivity</span>
+              <h5 class="mt-3">TaskPilot</h5>
+              <p class="muted">Smart planning, synced reminders, and a focused dashboard that keeps users on track.</p>
+              <a href="#" class="fw-semibold text-decoration-none" style="color: var(--teal);">View app →</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-4">
+          <div class="app-card">
+            <img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=1200&q=80" alt="Finance app visual">
+            <div class="content">
+              <span class="pill">Finance</span>
+              <h5 class="mt-3">PocketWise</h5>
+              <p class="muted">Elegant budgeting, spending analytics, and instant insights for smarter money habits.</p>
+              <a href="#" class="fw-semibold text-decoration-none" style="color: var(--teal);">View app →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="reviews">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Loved by teams and users</h2>
+        <p class="section-subtitle">Use testimonials to build trust and reinforce the quality of your app ecosystem.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="testimonial-card">
+            <p class="quote mb-4">“The layout feels premium from top to bottom. It made our app family look far more polished and professional.”</p>
+            <div class="d-flex align-items-center gap-3">
+              <img class="avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80" alt="Reviewer avatar">
+              <div>
+                <div class="fw-bold">Sophie Chen</div>
+                <div class="small muted">Product Lead</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="testimonial-card">
+            <p class="quote mb-4">“A clean one-page experience that helped us explain multiple apps without overwhelming our visitors.”</p>
+            <div class="d-flex align-items-center gap-3">
+              <img class="avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80" alt="Reviewer avatar">
+              <div>
+                <div class="fw-bold">Daniel Rivera</div>
+                <div class="small muted">Indie Developer</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="testimonial-card">
+            <p class="quote mb-4">“The teal and orange palette stands out beautifully. It feels modern, energetic, and memorable.”</p>
+            <div class="d-flex align-items-center gap-3">
+              <img class="avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=300&q=80" alt="Reviewer avatar">
+              <div>
+                <div class="fw-bold">Maya Thompson</div>
+                <div class="small muted">Creative Director</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pricing">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Simple plans for every stage</h2>
+        <p class="section-subtitle">Perfect for showcasing a single app, multiple launches, or your full mobile studio portfolio.</p>
+      </div>
+      <div class="row g-4 justify-content-center">
+        <div class="col-md-6 col-lg-4">
+          <div class="pricing-card">
+            <h4>Starter</h4>
+            <div class="price mt-3">$19</div>
+            <div class="price-note mt-2">per month</div>
+            <ul>
+              <li>1 app showcase</li>
+              <li>Hero, features, and CTA</li>
+              <li>Responsive Bootstrap layout</li>
+            </ul>
+            <a href="#download" class="btn btn-alt w-100 mt-4">Choose Starter</a>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="pricing-card featured">
+            <h4>Studio</h4>
+            <div class="price mt-3">$49</div>
+            <div class="price-note mt-2">per month</div>
+            <ul>
+              <li>Unlimited app sections</li>
+              <li>Testimonials and pricing blocks</li>
+              <li>Priority support and updates</li>
+            </ul>
+            <a href="#download" class="btn btn-light w-100 mt-4 fw-bold">Choose Studio</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="download">
+    <div class="container">
+      <div class="cta-card text-center">
+        <span class="pill mb-3">Launch-ready design</span>
+        <h2 class="mb-3">Ready to spotlight your iOS apps?</h2>
+        <p class="muted mx-auto mb-4" style="max-width: 700px;">Replace the sample content with your own app name, screenshots, App Store links, testimonials, and pricing. This single HTML file is easy to customize and deploy anywhere.</p>
+        <div class="d-flex justify-content-center flex-wrap gap-3">
+          <a href="#" class="btn btn-main">Get the Template</a>
+          <a href="#apps" class="btn btn-alt">See Showcase Again</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+      <div>© 2026 App Studio. Crafted for stunning iOS app launches.</div>
+      <div class="d-flex gap-4">
+        <a href="#" class="text-decoration-none" style="color: var(--muted);">Privacy</a>
+        <a href="#" class="text-decoration-none" style="color: var(--muted);">Terms</a>
+        <a href="#" class="text-decoration-none" style="color: var(--muted);">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
